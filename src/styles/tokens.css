@@ -1,0 +1,62 @@
+/* Палитра с alexeycorr.dev. Переключателя тем нет: светлая на :root,
+   тёмная по системе. */
+:root {
+  --text-main-color: oklch(23% 0.02 270);
+  --text-secondary-color: oklch(45% 0.01 270);
+  --on-accent-color: #fff;
+
+  --bg-main-color: oklch(97.5% 0.004 270);
+  --card-bg-color: oklch(99% 0.002 270);
+  --surface-2: oklch(93% 0.006 270);
+  --surface-3: oklch(89% 0.007 270);
+
+  --accent-color: oklch(53% 0.14 280);
+  --accent-text-color: oklch(42% 0.12 280);
+  --accent-glow: oklch(50% 0.16 280 / 8%);
+  --accent-border: oklch(50% 0.16 280 / 25%);
+  --focus-color: oklch(56% 0.14 280);
+
+  --divider-color: oklch(86% 0.006 270);
+  --border-color: oklch(78% 0.007 270);
+  --dot-color: oklch(70% 0.01 270 / 35%);
+  --error-color: oklch(55% 0.18 25);
+
+  --space-1: 8px;
+  --space-1-5: 10px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 40px;
+
+  --radius: 14px;
+  --radius-sm: 10px;
+
+  --font-text: Ubuntu, system-ui, -apple-system, sans-serif;
+  /* Ubuntu в цепочке не случайно: в сабсетах JetBrains Mono нет latin-ext,
+     где живут ₽ и ₫. */
+  --font-mono: 'JetBrains Mono', Ubuntu, ui-monospace, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text-main-color: oklch(87% 0.01 270);
+    --text-secondary-color: oklch(72% 0.01 270);
+    --on-accent-color: #fff;
+
+    --bg-main-color: oklch(10% 0.018 270);
+    --card-bg-color: oklch(23% 0.015 270);
+    --surface-2: oklch(14% 0.016 270);
+    --surface-3: oklch(18% 0.014 270);
+
+    --accent-color: oklch(65% 0.15 280);
+    --accent-text-color: oklch(70% 0.12 280);
+    --accent-glow: oklch(65% 0.15 280 / 14%);
+    --accent-border: oklch(65% 0.15 280 / 28%);
+    --focus-color: oklch(65% 0.15 280);
+
+    --divider-color: oklch(28% 0.012 270);
+    --border-color: oklch(30% 0.01 270);
+    --dot-color: oklch(35% 0.02 270 / 45%);
+    --error-color: oklch(65% 0.16 25);
+  }
+}

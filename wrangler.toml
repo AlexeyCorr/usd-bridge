@@ -1,0 +1,11 @@
+name = "usd-bridge"
+compatibility_date = "2025-12-01"
+main = "./worker.ts"
+
+routes = [
+	{ pattern = "alexeycorr.dev/usd-bridge*", zone_name = "alexeycorr.dev" }
+]
+
+[assets]
+binding = "ASSETS"
+directory = "./dist"

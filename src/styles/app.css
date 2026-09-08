@@ -1,0 +1,388 @@
+.app {
+  max-width: 460px;
+  margin: 0 auto;
+  /* viewport-fit=cover: отступы макета складываются с безопасной зоной,
+     а не заменяются ею через max(), иначе контент прижмётся к вырезу. */
+  padding-top: calc(var(--space-3) + env(safe-area-inset-top));
+  padding-right: calc(var(--space-2) + env(safe-area-inset-right));
+  padding-bottom: calc(var(--space-5) + env(safe-area-inset-bottom));
+  padding-left: calc(var(--space-2) + env(safe-area-inset-left));
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.app__header {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.app__title {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--accent-text-color);
+}
+
+.app__subtitle {
+  font-size: 13px;
+  color: var(--text-secondary-color);
+}
+
+/* --- Поле курса --------------------------------------------------------- */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.field__caption {
+  font-size: 13px;
+  color: var(--text-secondary-color);
+}
+
+.field__row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1-5) var(--space-2);
+  background-color: var(--card-bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.field__row:focus-within {
+  border-color: var(--accent-border);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.field__value {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: var(--font-mono);
+  font-size: 22px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  /* Число прижато к своей единице измерения: «90 ₽ за 1 $». */
+  text-align: right;
+}
+
+.field__value::placeholder {
+  color: var(--text-secondary-color);
+  opacity: 0.5;
+}
+
+.unit {
+  position: relative;
+  display: inline-flex;
+  flex: none;
+}
+
+.unit__view {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-width: 4.5ch;
+  padding: 2px var(--space-1);
+  border-radius: var(--radius-sm);
+  background-color: var(--surface-2);
+  font-size: 15px;
+  white-space: nowrap;
+  transition: background-color 0.15s ease;
+}
+
+/* Треугольник нарисован границами: глифов-стрелок в сабсетах шрифта нет. */
+.unit__view::after {
+  content: '';
+  width: 0;
+  height: 0;
+  border-top: 4px solid currentcolor;
+  border-right: 3px solid transparent;
+  border-left: 3px solid transparent;
+  opacity: 0.45;
+}
+
+.unit__view--empty {
+  color: var(--text-secondary-color);
+  opacity: 0.7;
+}
+
+.unit__select {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  appearance: none;
+  background: none;
+  /* 16px обязательны: на меньшем размере iOS зумит страницу при фокусе. */
+  font-size: 16px;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.unit:hover .unit__view {
+  background-color: var(--surface-3);
+}
+
+.field__per {
+  flex: none;
+  font-size: 13px;
+  color: var(--text-secondary-color);
+  white-space: nowrap;
+}
+
+/* Кольцо фокуса рисует строка целиком: outline на самих полях давал
+   вторую обводку внутри первой. */
+.field__value:focus-visible,
+.unit__select:focus-visible {
+  outline: none;
+}
+
+.unit__select:focus-visible + .unit__view,
+.unit:focus-within .unit__view {
+  background-color: var(--surface-3);
+  box-shadow: inset 0 0 0 1px var(--accent-border);
+}
+
+.field__foot {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-1);
+  min-height: 20px;
+  padding: 0 var(--space-2);
+}
+
+.field__echo {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-secondary-color);
+}
+
+/* --- Блок курсов -------------------------------------------------------- */
+
+.rates {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.bridge {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1-5);
+  margin-top: calc(var(--space-1) * -1);
+  color: var(--text-secondary-color);
+}
+
+.bridge::before,
+.bridge::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background-color: var(--divider-color);
+}
+
+.bridge__label {
+  font-size: 12px;
+}
+
+.bridge__swap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  background-color: var(--card-bg-color);
+  color: var(--text-secondary-color);
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.bridge__swap:hover {
+  border-color: var(--accent-border);
+  color: var(--accent-text-color);
+}
+
+.rates__age {
+  font-size: 12px;
+  color: var(--text-secondary-color);
+}
+
+/* --- Результат ---------------------------------------------------------- */
+
+.result {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1-5);
+  padding: var(--space-3) var(--space-2);
+  border: 1px solid var(--accent-border);
+  border-radius: var(--radius);
+  /* Непрозрачная подложка: иначе точечный фон просвечивает сквозь блок. */
+  background-color: var(--card-bg-color);
+  background-image: linear-gradient(var(--accent-glow), var(--accent-glow));
+}
+
+.result__amount {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-1);
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 15px;
+  color: var(--text-secondary-color);
+}
+
+.result__amount-to {
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text-main-color);
+}
+
+.result__rates {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.result__rate {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 15px;
+  letter-spacing: -0.01em;
+}
+
+.result__rate--lead {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.result__note {
+  font-size: 12px;
+  color: var(--text-secondary-color);
+}
+
+.result__note--warning {
+  color: var(--error-color);
+}
+
+/* --- Дополнительно ------------------------------------------------------ */
+
+.extras {
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  background-color: var(--card-bg-color);
+}
+
+.extras__summary {
+  padding: var(--space-1-5) var(--space-2);
+  font-size: 14px;
+  color: var(--text-secondary-color);
+  cursor: pointer;
+  list-style: none;
+}
+
+.extras__summary::-webkit-details-marker {
+  display: none;
+}
+
+.extras__summary::after {
+  content: '＋';
+  float: right;
+  opacity: 0.6;
+}
+
+.extras[open] .extras__summary::after {
+  content: '−';
+}
+
+.extras__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: 0 var(--space-2) var(--space-2);
+  border-top: 1px solid var(--divider-color);
+  padding-top: var(--space-2);
+}
+
+/* --- Переключатель вида комиссии ---------------------------------------- */
+
+.toggle {
+  display: flex;
+  flex: none;
+  gap: 2px;
+  padding: 2px;
+  border-radius: var(--radius-sm);
+  background-color: var(--surface-2);
+}
+
+.toggle__button {
+  padding: 4px var(--space-1-5);
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  font-size: 13px;
+  color: var(--text-secondary-color);
+  cursor: pointer;
+}
+
+.toggle__button--active {
+  background-color: var(--accent-color);
+  color: var(--on-accent-color);
+}
+
+/* --- Ссылка ------------------------------------------------------------- */
+
+.share {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.share__button {
+  padding: var(--space-1-5) var(--space-2);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  background-color: var(--card-bg-color);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.share__button:hover {
+  border-color: var(--accent-border);
+}
+
+.share__status {
+  font-size: 13px;
+  color: var(--text-secondary-color);
+}
+
+.field__row--invalid {
+  border-color: var(--error-color);
+}
+
+.result__arrow {
+  color: var(--text-secondary-color);
+}
+
+.result__rates--divided {
+  padding-top: var(--space-1);
+  border-top: 1px solid var(--divider-color);
+}
+

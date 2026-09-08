@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="usd-bridge">
+  <rect width="512" height="512" rx="113" fill="#5c50cc"/>
+  <text x="256" y="256" fill="#ffffff"
+        font-family="Helvetica, Arial, sans-serif" font-weight="700" font-size="338"
+        text-anchor="middle" dominant-baseline="central">$</text>
+</svg>
