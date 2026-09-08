@@ -48,6 +48,6 @@ export default defineConfig({
     // Тестируем только src/core — чистый TS, DOM не нужен.
     environment: 'node',
     globals: true,
-    include: ['src/core/**/*.test.ts'],
+    include: ['src/core/**/*.test.ts', 'worker.test.ts'],
   },
 });

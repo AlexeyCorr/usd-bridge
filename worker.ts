@@ -23,6 +23,11 @@ export default {
     }
 
     url.pathname = pathname.slice(BASE.length);
+    // Assets редиректит '/index.html' на корень домена. Workbox запрашивает
+    // именно этот путь для precache, поэтому отдаём корневой asset напрямую.
+    if (url.pathname === '/index.html') {
+      url.pathname = '/';
+    }
     const res = await env.ASSETS.fetch(new Request(url.toString(), request));
 
     // SPA-fallback: неизвестный путь → index.html.
