@@ -16,8 +16,8 @@ export default defineConfig({
         globPatterns: ['**/*.{js,css,html,svg,png,woff2}'],
       },
       manifest: {
-        name: 'usd-bridge',
-        short_name: 'usd-bridge',
+        name: 'USD Bridge',
+        short_name: 'USD Bridge',
         description: 'Кросс-курс валют через доллар по вашим собственным курсам',
         lang: 'ru',
         id: '/usd-bridge/',

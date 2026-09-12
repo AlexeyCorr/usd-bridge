@@ -49,7 +49,7 @@ export function App() {
   return (
     <main className="app">
       <header className="app__header">
-        <h1 className="app__title">usd-bridge</h1>
+        <h1 className="app__title">USD Bridge</h1>
         <p className="app__subtitle">Курс между валютами через доллар — по вашим курсам</p>
       </header>
 
